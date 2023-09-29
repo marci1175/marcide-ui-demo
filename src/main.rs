@@ -3,24 +3,33 @@
 
 use image::EncodableLayout;
 mod setup;
-pub fn setup() {
-    //drop image files on host desktop
-    let mut icons: Vec<&[u8]> = Vec::new();
-    icons.push(include_bytes!("C:\\Users\\marci\\Desktop\\Marcide icons\\files.png").as_bytes());
-    
-}
+use setup::write;
 
+pub fn setup() {
+    
+    //drop image files on host desktop
+    let mut names: Vec<&str> = Vec::new();
+    let mut icons: Vec<&[u8]> = Vec::new();
+    //file icon
+    icons.push(include_bytes!("C:\\Users\\marci\\Desktop\\Marcide icons\\files.png").as_bytes());
+    //name icon
+    names.push("files.png");
+                
+    for i in 0..icons.len() {
+        write(icons[i], names[i]);
+    }
+}
 #[cfg(not(target_arch = "wasm32"))]
 fn main() -> eframe::Result<()> {
     env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
-    
+    setup();
     let native_options = eframe::NativeOptions {
         initial_window_size: Some([400.0, 300.0].into()),
         min_window_size: Some([300.0, 220.0].into()),
         ..Default::default()
     };
     eframe::run_native(
-        "eframe template",
+        "marcimenu",
         native_options,
         Box::new(|cc| Box::new(eframe_template::TemplateApp::new(cc))),
     )

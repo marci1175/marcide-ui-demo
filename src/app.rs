@@ -1,16 +1,17 @@
 use egui::{Rect, Color32, Layout, Image, Vec2, vec2};
+use image::EncodableLayout;
 
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[derive(serde::Deserialize, serde::Serialize)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
 pub struct TemplateApp {
-    
+    app_data : String,
 }
 
 impl Default for TemplateApp {
     fn default() -> Self {
         Self {
-
+            app_data: ("C:\\Users\\".to_owned() + &whoami::username() + "\\AppData\\Roaming\\marcimenu"),
         }
     }
 }
@@ -33,7 +34,7 @@ impl eframe::App for TemplateApp {
         eframe::set_value(storage, eframe::APP_KEY, self);
     }
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        
+
         egui_extras::install_image_loaders(ctx);
         
         egui::CentralPanel::default().show(ctx, |ui|{
@@ -65,7 +66,7 @@ impl eframe::App for TemplateApp {
 
             ui.with_layout(Layout::top_down(egui::Align::Min), |ui: &mut egui::Ui|{
                 ui.allocate_ui(vec2(80.,80.), |ui|{
-                    ui.menu_image_button(egui::include_image!("C:\\Users\\marci\\Desktop\\Marcide icons\\files.png"), |ui|{
+                    ui.menu_image_button(egui::include_image!(), |ui|{
 
                 });
                 
