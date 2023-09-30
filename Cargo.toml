@@ -22,6 +22,7 @@ image = { version = "0.24", features = ["jpeg", "png"] } # Add the types you wan
 # You only need serde if you want app persistence:
 serde = { version = "1", features = ["derive"] }
 whoami = "1.4.1"
+egui_dock = "0.8.0"
 
 # native:
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
